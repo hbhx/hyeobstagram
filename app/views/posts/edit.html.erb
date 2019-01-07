@@ -1,0 +1,15 @@
+<div class="container mt-5 p-3" style="background-color:white; border:1px solid #cccccc">
+  <form action="/posts/update/<%=@post.id%>" method="post">
+    <div class="form-group">
+      <input type="text" class="form-control" name="user_name" value="<%=@post.user_name%>" id="example-text-input" readonly>
+    </div>
+    <div class="form-group">
+      <textarea class="form-control" name="content" id="exampleTextarea" rows="8" placeholder="내용을 입력하세요"><%=@post.content%></textarea>
+    </div>
+    <div class="form-group">
+      <textarea class="form-control" name="tag" id="exampleTextarea" rows="3"  placeholder="태그를 지정해주세요"><%=@post.tag%></textarea>
+      <small id="emailHelp" class="form-text text-muted">※ 태그는 #을 이용해서 지정해주세요</small>
+    </div>
+    <button type="submit" class="btn btn-danger">작성완료</button>
+  </form>
+</div>

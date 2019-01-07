@@ -1,0 +1,75 @@
+<!--게시판-->
+<% @posts.each do |p| %>
+  <div class="container mt-5 mb-5">
+    <div class="card col-8 offset-2">
+    
+      <!--User Info-->
+      <div class="d-flex justify-content-end" style="border-bottom:1px solid #cccccc">
+        <div class="mr-auto p-2">
+          <div>
+            <span class="align-middle">
+              <img src="/assets/user.png" width="50px" height="50px" alt="..." class="rounded-circle" style="border:1px solid #cccccc; padding:2px">
+            </span>
+            <span class="align-middle">&nbsp
+              <%= p.user_name %>
+            </span>
+          </div>
+        </div>
+        <div class="p-2 my-auto"><a href="/posts/edit/<%=p.id%>" class="text-muted" title="수정"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></div>
+        <div class="p-2 my-auto"><a href="/posts/destroy/<%=p.id%>" class="text-muted" title="삭제" data-method="post" data-confirm="정말로 삭제하시겠습니까?"><i class="fa fa-times" aria-hidden="true"></i></a></div>
+      </div>
+      
+      <!--Content-->
+      <div class="mt-5 mb-3">
+        <img class="card-img-top col-10 offset-1" width="350px" height="500px" src="/assets/no_image.png" alt="...">
+        <div class="card-block mt-3">
+          <p class="card-title">
+            <span class="font-weight-bold"><%= p.user_name %></span>&nbsp&nbsp <%= p.content %>
+          </p>
+          <p class="card-text text-muted"><%= p.tag %></p>
+          <br>
+          <small class="text-muted"><%=p.created_at.in_time_zone("Asia/Seoul").strftime("%Y.%m.%d %H:%M")%></small>
+        </div>
+      </div>
+      
+      <!--Reply-->
+        <div class="card-footer" style="background-color:white">
+          
+        <!--replys-->
+        <% p.comments.each do |r| %>
+          <div class="row">
+            <div class="col-3">
+              <p class="font-weight-bold"><%=r.user_name%></p>
+            </div>
+            <div class="col-8">
+              <p class="pr-1"><%= r.content %></p>
+            </div>
+            <div class="col-1">
+              <div class="row">
+                <div><a href="/comments/destroy/<%=r.id%>" class="text-muted" title="삭제" data-method="post" data-confirm="정말로 삭제하시겠습니까?"><i class="fa fa-times" aria-hidden="true"></i></a></div>
+              </div>
+            </div>
+          </div>
+        <% end %>
+        
+        <form action="/comments/create/<%=p.id%>" method="post">
+          <!--Input reply-->
+          <div class="row mt-5">
+            <div class="form-group col-3">
+              <input type="text" class="form-control" name="user_name" id="example-text-input" placeholder="이름...">
+            </div>
+            <div class="form-group col-9">
+              <textarea class="form-control" name="content" id="exampleTextarea" rows="1" placeholder="댓글달기..."></textarea>
+            </div>
+          </div>
+          <div class="row d-flex justify-content-end">
+            <div class="pr-3 pb-3">
+              <button type="submit" class="btn btn-danger p-2">댓글달기</button>
+            </div>
+          </div>
+        </form>
+      </div>
+      
+    </div>
+  </div>
+<% end %>
